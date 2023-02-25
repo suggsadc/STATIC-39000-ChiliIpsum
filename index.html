@@ -122,7 +122,7 @@ window.addEventListener('load', function(){
                             <form id="recipeForm">
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="name">Your Name</label>
-                                    <input type="text" id="name" class="form-control"/>
+                                    <input type="text" id="name" class="form-control" required/>
                                 </div>
                                 <div class="form-outline mb-4">
                                     <p>
@@ -131,11 +131,11 @@ window.addEventListener('load', function(){
                                     <div class="row">
                                         <div class="col">
                                             <label class="form-label" for="noun1">Noun 1</label>
-                                            <input type="text" id="noun1" class="form-control"/>
+                                            <input type="text" id="noun1" class="form-control" required/>
                                         </div>
                                         <div class="col">
                                           <label class="form-label" for="noun2">Noun 2</label>
-                                          <input type="text" id="noun2" class="form-control"/>
+                                          <input type="text" id="noun2" class="form-control" required/>
                                         </div>
                                     </div>
 
@@ -145,16 +145,16 @@ window.addEventListener('load', function(){
                                         <strong>One Addjective:</strong>
                                     </p>
                                     <label class="form-label" for="adjective1">Adjective 1</label>
-                                    <input type="text" id="adjective1" class="form-control"/>
+                                    <input type="text" id="adjective1" class="form-control" required/>
                                 </div>
                                 <div class="form-outline mb-4">
                                     <p>
                                         <strong>Three Verbs (ending in -ing):</strong>
                                     </p>
                                     <label class="form-label" for="verb1">Verb 1</label>
-                                    <input type="text" id="verb1" class="form-control"/>
+                                    <input type="text" id="verb1" class="form-control" required/>
                                     <label class="form-label" for="verb2">Verb 2</label>
-                                    <input type="text" id="verb2" class="form-control"/>
+                                    <input type="text" id="verb2" class="form-control" required/>
                                 </div>
                                 <div class="form-outline mb-4">
                                     <p>
@@ -163,11 +163,11 @@ window.addEventListener('load', function(){
                                     <div class="row">
                                         <div class="col">
                                             <label class="form-label" for="number1">Number 1</label>
-                                            <input type="number" id="number1" class="form-control"/>
+                                            <input type="number" id="number1" class="form-control" required/>
                                         </div>
                                         <div class="col">
                                             <label class="form-label" for="number2">Number 2</label>
-                                            <input type="number" id="number2" class="form-control"/>
+                                            <input type="number" id="number2" class="form-control" required/>
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +176,7 @@ window.addEventListener('load', function(){
                                         <strong>One Animal:</strong>
                                     </p>
                                     <label class="form-label" for="animal1">Animal</label>
-                                    <input type="text" id="animal1" class="form-control"/>
+                                    <input type="text" id="animal1" class="form-control" required/>
                                 </div>
 
 
@@ -195,6 +195,7 @@ window.addEventListener('load', function(){
                             form.addEventListener('submit', function (e) {
                                 e.preventDefault();
                                 const query = `${inputs.adjective1.value} ${inputs.animal1.value}`
+                                loadingCont.style.display = 'block';
                                 execute(query);
                             })
 
@@ -232,7 +233,7 @@ window.addEventListener('load', function(){
                                 window.scrollTo(0, 0);
 
 
-                                loadingCont.style.display = 'block'
+                                
 
 
                                 setTimeout(function(){
