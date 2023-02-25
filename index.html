@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <title>Starter Template</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+            }
+
+            #recipeResultCont {
+                display: none;
+            }
+
+            @media(min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+        </style>
+
+<script src="https://apis.google.com/js/api.js"></script>
+<script>
+let imgResult = '';
+
+  /**
+   * Sample JavaScript code for search.cse.list
+   * See instructions for running APIs Explorer code samples locally:
+   * https://developers.google.com/explorer-help/code-samples#javascript
+   */
+
+  function loadClient() {
+    gapi.client.setApiKey("AIzaSyCh4SZFBHyKAfDj2Ae7QuCFGC2i1JCpyjw");
+    return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/customsearch/v1/rest")
+        .then(function() { console.log("GAPI client loaded for API"); },
+              function(err) { console.error("Error loading GAPI client for API", err); });
+  }
+  // Make sure the client is loaded before calling this method.
+  function execute(query) {
+    return gapi.client.search.cse.list({
+      "imgSize": "MEDIUM",
+      "imgType": "photo",
+      "q": query,
+      "safe": "high",
+      "searchType": "image",
+      "cx": "b0308846b19cf47d2"
+    })
+        .then(function(response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+                imgResult = response.result.items[0].link;
+                console.log(imgResult);
+                displayResults();
+              },
+              function(err) { console.error("Execute error", err); });
+  }
+gapi.load("client");
+
+window.addEventListener('load', function(){
+  loadClient()
+})
+
+</script>
+    </head>
+    <body>
+
+        <div class="col-lg-8 mx-auto p-3 py-md-5">
+            <!-- <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+                <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" class="me-2" viewbox="0 0 118 94" role="img">
+                        <title>Bootstrap</title>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z" fill="currentColor"></path>
+                    </svg>
+                    <span class="fs-4">Starter template</span>
+                </a>
+            </header> -->
+
+            <main>
+                <!-- <h1>Get started with Bootstrap</h1>
+                <p class="fs-5 col-md-8">Quickly and easily get started with Bootstrap's compiled, production-ready files with this barebones example featuring some basic HTML and helpful links. Download all our examples to get started.</p> -->
+
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3">
+
+
+                        <div id="recipeFormCont">
+                            <h2><span style="color:fuchsia">[PLACEHOLDER]</span> CHILI RECIPE</h2>
+                            <p>Help us come up with a chili recipe by giving us the following information</p>
+
+                            <form id="recipeForm">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="name">Your Name</label>
+                                    <input type="text" id="name" class="form-control"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <p>
+                                        <strong>Four Nouns:</strong>
+                                    </p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="form-label" for="noun1">Noun 1</label>
+                                            <input type="text" id="noun1" class="form-control"/>
+                                        </div>
+                                        <div class="col">
+                                          <label class="form-label" for="noun2">Noun 2</label>
+                                          <input type="text" id="noun2" class="form-control"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <p>
+                                        <strong>One Addjective:</strong>
+                                    </p>
+                                    <label class="form-label" for="adjective1">Adjective 1</label>
+                                    <input type="text" id="adjective1" class="form-control"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <p>
+                                        <strong>Three Verbs (ending in -ing):</strong>
+                                    </p>
+                                    <label class="form-label" for="verb1">Verb 1</label>
+                                    <input type="text" id="verb1" class="form-control"/>
+                                    <label class="form-label" for="verb2">Verb 2</label>
+                                    <input type="text" id="verb2" class="form-control"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <p>
+                                        <strong>Two Numbers:</strong>
+                                    </p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="form-label" for="number1">Number 1</label>
+                                            <input type="number" id="number1" class="form-control"/>
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label" for="number2">Number 2</label>
+                                            <input type="number" id="number2" class="form-control"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <p>
+                                        <strong>One Animal:</strong>
+                                    </p>
+                                    <label class="form-label" for="animal1">Animal</label>
+                                    <input type="text" id="animal1" class="form-control"/>
+                                </div>
+
+
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
+                            </form>
+                        </div>
+                        <div id="recipeResultsCont"></div>
+
+                        <script>
+                            const formCont = document.getElementById('recipeFormCont');
+                            const form = document.getElementById('recipeForm');
+                            const inputs = document.getElementsByTagName('input');
+                            const resultCont = document.getElementById('recipeResultsCont');
+                            form.addEventListener('submit', function (e) {
+                                e.preventDefault();
+                                const query = `${inputs.adjective1.value} ${inputs.animal1.value}`
+                                execute(query);
+                            })
+
+
+                        function displayResults(){
+                                // console.log(inputs);
+                                // console.log(inputs.noun1.value)
+                                formCont.style.display = 'none'
+
+                                const result = `<h2>${inputs.adjective1.value} ${inputs.animal1.value} chili recipe</h2>
+
+                                <p>By: ${inputs.name.value}</p>
+
+                                <img src='${imgResult}' class="mb-5">
+
+                                <h3>Ingredients:</h3>
+                                <ul>
+                                  <li>${inputs.noun1.value}</li>
+                                  <li>${inputs.noun2.value}</li>
+                                  <li>${inputs.animal1.value}</li>
+                                </ul>
+                                <h3>Recipe</h3>
+                                <ul>
+                                  <li>Add the <strong>${inputs.animal1.value}</strong> to a large pan. Break it apart with a <strong>${inputs.adjective1.value}</strong> spoon until it is browned, <strong>${inputs.verb1.value}</strong> occasionally.</li>
+                                  <li>Add the <strong>${inputs.noun1.value}</strong> and optional <strong>${inputs.noun2.value}</strong> while <strong>${inputs.verb2.value}</strong> until well combined.</li>
+                                  <li>Add the <strong>${inputs.animal1.value}</strong> to a large soup pot and bring the liquid to a low boil. Then, reduce the heat (low to medium-low) uncovered for <strong>${inputs.number2.value}</strong> minutes.
+                                  <li>Remove the pot from the heat. Let the chili rest for 5-10 minutes before serving.</li>
+                                </ul>
+                                
+                                <p>Interesting... well you tried i guess, thanks anyway!
+                                
+                                `;
+
+
+                                resultCont.innerHTML = result;
+                                window.scrollTo(0, 0);
+                                resultCont.style.display = 'block'                          
+                        }    
+                        </script>
+
+
+                    </div>
+                </div>
+
+                <!-- <hr class="col-3 col-md-2 mb-5">
+
+                <div class="row g-5">
+                    <div class="col-md-6">
+
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <h2>Guides</h2>
+                        <p>Read more detailed instructions and documentation on using or contributing to Bootstrap.</p>
+                        <ul class="icon-list">
+                            <li>
+                                <a href="/docs/5.0/getting-started/introduction/">Bootstrap quick start guide</a>
+                            </li>
+                            <li>
+                                <a href="/docs/5.0/getting-started/webpack/">Bootstrap Webpack guide</a>
+                            </li>
+                            <li>
+                                <a href="/docs/5.0/getting-started/parcel/">Bootstrap Parcel guide</a>
+                            </li>
+                            <li>
+                                <a href="/docs/5.0/getting-started/build-tools/">Contributing to Bootstrap</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
+            </main>
+            <footer class="pt-5 my-5 text-muted border-top">
+                Created by the Bootstrap team &middot; &copy; 2021
+            </footer>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+
+    </body>
+</html>
