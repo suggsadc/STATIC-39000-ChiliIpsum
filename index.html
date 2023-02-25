@@ -28,6 +28,23 @@
                     font-size: 3.5rem;
                 }
             }
+            #recipeLoadingCont{
+                display:none;
+                position: fixed;
+                z-index: 100;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(255,255,255,0.9);
+            }
+            #recipeLoadingCont span{
+                display:block;
+                position: absolute;
+                left:40%;
+                top:50%;
+            }
         </style>
 
 <script src="https://apis.google.com/js/api.js"></script>
@@ -74,6 +91,9 @@ window.addEventListener('load', function(){
 </script>
     </head>
     <body>
+        <div id="recipeLoadingCont">
+            <span style="color:fuchsia">[LOADING ANIMATION GOES HERE]</span>
+        </div>
 
         <div class="col-lg-8 mx-auto p-3 py-md-5">
             <!-- <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
@@ -90,11 +110,12 @@ window.addEventListener('load', function(){
                 <!-- <h1>Get started with Bootstrap</h1>
                 <p class="fs-5 col-md-8">Quickly and easily get started with Bootstrap's compiled, production-ready files with this barebones example featuring some basic HTML and helpful links. Download all our examples to get started.</p> -->
 
+
+
                 <div class="row">
                     <div class="col-lg-6 offset-lg-3">
 
-
-                        <div id="recipeFormCont">
+                        <div id="recipeFormCont" class="cont">
                             <h2><span style="color:fuchsia">[PLACEHOLDER]</span> CHILI RECIPE</h2>
                             <p>Help us come up with a chili recipe by giving us the following information</p>
 
@@ -163,13 +184,14 @@ window.addEventListener('load', function(){
                                 <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
                             </form>
                         </div>
-                        <div id="recipeResultsCont"></div>
+                        <div id="recipeResultsCont" class="cont"></div>
 
                         <script>
                             const formCont = document.getElementById('recipeFormCont');
                             const form = document.getElementById('recipeForm');
                             const inputs = document.getElementsByTagName('input');
                             const resultCont = document.getElementById('recipeResultsCont');
+                            const loadingCont = document.getElementById('recipeLoadingCont');
                             form.addEventListener('submit', function (e) {
                                 e.preventDefault();
                                 const query = `${inputs.adjective1.value} ${inputs.animal1.value}`
@@ -180,7 +202,6 @@ window.addEventListener('load', function(){
                         function displayResults(){
                                 // console.log(inputs);
                                 // console.log(inputs.noun1.value)
-                                formCont.style.display = 'none'
 
                                 const result = `<h2>${inputs.adjective1.value} ${inputs.animal1.value} chili recipe</h2>
 
@@ -209,7 +230,16 @@ window.addEventListener('load', function(){
 
                                 resultCont.innerHTML = result;
                                 window.scrollTo(0, 0);
-                                resultCont.style.display = 'block'                          
+
+
+                                loadingCont.style.display = 'block'
+
+
+                                setTimeout(function(){
+                                    loadingCont.style.display = 'none'
+                                    formCont.style.display = 'none'
+                                    resultCont.style.display = 'block'
+                                },5000);                          
                         }    
                         </script>
 
